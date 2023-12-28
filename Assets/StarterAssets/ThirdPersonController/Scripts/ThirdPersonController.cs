@@ -232,7 +232,7 @@ namespace StarterAssets {
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity * player_speed, 0.0f) * Time.deltaTime);
 
             if (_hasAnimator) {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
@@ -241,6 +241,7 @@ namespace StarterAssets {
         }
 
         private void JumpAndGravity() {
+            float player_speed = 1.0f / SuperSpeed.Clock.instance.scale;
             if (Grounded) {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
