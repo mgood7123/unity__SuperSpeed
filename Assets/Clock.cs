@@ -53,7 +53,7 @@ namespace SuperSpeed {
         }
 
         void Update() {
-            if (Gamepad.current.leftShoulder.isPressed || Keyboard.current.enterKey.isPressed) {
+            if ((Gamepad.current != null && Gamepad.current.leftShoulder.isPressed) || (Keyboard.current != null && Keyboard.current.enterKey.isPressed)) {
                 scale = 0.05f;
             } else {
                 scale = 1.0f;
