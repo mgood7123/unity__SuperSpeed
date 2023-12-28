@@ -179,10 +179,11 @@ namespace StarterAssets {
         }
 
         private void CameraRotation() {
+            float player_speed = 1.0f / SuperSpeed.Clock.instance.scale;
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition) {
                 //Don't multiply mouse input by Time.deltaTime;
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime * player_speed;
 
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
@@ -198,9 +199,10 @@ namespace StarterAssets {
         }
 
         private void Move() {
-            float targetSpeed = (_input.sprint ? SprintSpeed : MoveSpeed) * (1.0f / SuperSpeed.Clock.instance.scale);
-
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            float player_speed = 1.0f / SuperSpeed.Clock.instance.scale;
+            float anim_speed = _input.sprint ? SprintSpeed : MoveSpeed;
+            if (_input.move == Vector2.zero) anim_speed = 0.0f;
+            float targetSpeed = anim_speed * player_speed;
 
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
@@ -209,14 +211,14 @@ namespace StarterAssets {
 
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset) {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * (SpeedChangeRate * player_speed));
 
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             } else {
                 _speed = targetSpeed;
             }
 
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * (SpeedChangeRate * (1.0f / SuperSpeed.Clock.instance.scale)));
+            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed / player_speed, Time.deltaTime * (SpeedChangeRate * player_speed));
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
@@ -224,7 +226,7 @@ namespace StarterAssets {
             if (_input.move != Vector2.zero) {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
 
-                transform.rotation = Quaternion.Euler(0.0f, Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime), 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime / player_speed), 0.0f);
             }
 
 
@@ -234,7 +236,7 @@ namespace StarterAssets {
 
             if (_hasAnimator) {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude * player_speed);
             }
         }
 
