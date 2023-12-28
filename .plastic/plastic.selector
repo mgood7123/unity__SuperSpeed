@@ -1,0 +1,4 @@
+repository "SuperSpeed@smallville7123@cloud"
+  path "/"
+    br "/main"
+    co "/main"
