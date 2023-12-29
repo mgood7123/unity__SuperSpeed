@@ -145,8 +145,12 @@ namespace StarterAssets {
             _fallTimeoutDelta = FallTimeout;
         }
 
+        public float player_speed;
+
         private void Update() {
             _hasAnimator = TryGetComponent(out _animator);
+
+            player_speed = 2.0f; // 1.0f / SuperSpeed.Clock.instance.scale;
 
             JumpAndGravity();
             GroundedCheck();
@@ -179,7 +183,6 @@ namespace StarterAssets {
         }
 
         private void CameraRotation() {
-            float player_speed = 1.0f / SuperSpeed.Clock.instance.scale;
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition) {
                 //Don't multiply mouse input by Time.deltaTime;
@@ -199,7 +202,6 @@ namespace StarterAssets {
         }
 
         private void Move() {
-            float player_speed = 1.0f / SuperSpeed.Clock.instance.scale;
             float anim_speed = _input.sprint ? SprintSpeed : MoveSpeed;
             if (_input.move == Vector2.zero) anim_speed = 0.0f;
             float targetSpeed = anim_speed * player_speed;
@@ -240,8 +242,14 @@ namespace StarterAssets {
             }
         }
 
+        public float AdjustedGravity;
+        public float AdjustedJumpHeight;
+
         private void JumpAndGravity() {
-            float player_speed = 1.0f / SuperSpeed.Clock.instance.scale;
+
+            AdjustedGravity = Gravity * player_speed;
+            AdjustedJumpHeight = JumpHeight * 2;
+
             if (Grounded) {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
@@ -260,7 +268,7 @@ namespace StarterAssets {
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f) {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    _verticalVelocity = Mathf.Sqrt(AdjustedJumpHeight * -2f * AdjustedGravity);
 
                     // update animator if using character
                     if (_hasAnimator) {
@@ -292,7 +300,7 @@ namespace StarterAssets {
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity) {
-                _verticalVelocity += Gravity * Time.deltaTime;
+                _verticalVelocity += AdjustedGravity * Time.deltaTime;
             }
         }
 
