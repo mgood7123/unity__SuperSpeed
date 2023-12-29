@@ -146,11 +146,13 @@ namespace StarterAssets {
         }
 
         public float player_speed;
+        public float camera_rotation_speed;
 
         private void Update() {
             _hasAnimator = TryGetComponent(out _animator);
 
             player_speed = 2.0f; // 1.0f / SuperSpeed.Clock.instance.scale;
+            camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.scale;
 
             JumpAndGravity();
             GroundedCheck();
@@ -186,7 +188,7 @@ namespace StarterAssets {
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition) {
                 //Don't multiply mouse input by Time.deltaTime;
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime * player_speed;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime * camera_rotation_speed;
 
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
@@ -197,8 +199,7 @@ namespace StarterAssets {
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
             // Cinemachine will follow this target
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
         }
 
         private void Move() {
