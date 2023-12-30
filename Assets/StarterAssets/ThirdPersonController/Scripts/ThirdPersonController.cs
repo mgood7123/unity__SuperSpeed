@@ -151,7 +151,11 @@ namespace StarterAssets {
         private void Update() {
             _hasAnimator = TryGetComponent(out _animator);
 
-            player_speed = 2.0f; // 1.0f / SuperSpeed.Clock.instance.scale;
+            if (SuperSpeed.Clock.instance.scale == 1.0f) {
+                player_speed = 1.0f;
+            } else {
+                player_speed = 1.0f / (SuperSpeed.Clock.instance.scale * 1);
+            }
             camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.scale;
 
             JumpAndGravity();
@@ -235,21 +239,16 @@ namespace StarterAssets {
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime * player_speed);
 
             if (_hasAnimator) {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude * player_speed);
+                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.speed = 1.0f * player_speed;
             }
         }
 
-        public float AdjustedGravity;
-        public float AdjustedJumpHeight;
-
         private void JumpAndGravity() {
-
-            AdjustedGravity = Gravity * player_speed;
-            AdjustedJumpHeight = JumpHeight * 2;
 
             if (Grounded) {
                 // reset the fall timeout timer
@@ -269,7 +268,7 @@ namespace StarterAssets {
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f) {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    _verticalVelocity = Mathf.Sqrt(AdjustedJumpHeight * -2f * AdjustedGravity);
+                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
                     // update animator if using character
                     if (_hasAnimator) {
@@ -279,7 +278,7 @@ namespace StarterAssets {
 
                 // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f) {
-                    _jumpTimeoutDelta -= Time.deltaTime;
+                    _jumpTimeoutDelta -= Time.deltaTime * player_speed;
                 }
             } else {
                 // reset the jump timeout timer
@@ -287,7 +286,7 @@ namespace StarterAssets {
 
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f) {
-                    _fallTimeoutDelta -= Time.deltaTime;
+                    _fallTimeoutDelta -= Time.deltaTime * player_speed;
                 } else {
                     // update animator if using character
                     if (_hasAnimator) {
@@ -301,7 +300,7 @@ namespace StarterAssets {
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity) {
-                _verticalVelocity += AdjustedGravity * Time.deltaTime;
+                _verticalVelocity += Gravity * Time.deltaTime * player_speed;
             }
         }
 
