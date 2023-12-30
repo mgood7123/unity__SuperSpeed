@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f31a7d06a727448bf886b7bbf3b6603b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Examples/Vertical Example 3/FlexGrid
+    Data-Vertical 3 - Without Add and Cross in items.asset
+  uploadId: 429163

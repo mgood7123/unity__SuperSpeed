@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b0ab48c6a97dc453bbb90d9e853da403
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Prefabs/Core/FlexGridRow.prefab
+  uploadId: 429163

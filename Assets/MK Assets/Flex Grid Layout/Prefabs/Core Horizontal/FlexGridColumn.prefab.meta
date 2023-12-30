@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a15690f8d63e144fd96f7bc69a1e75c9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Prefabs/Core Horizontal/FlexGridColumn.prefab
+  uploadId: 429163

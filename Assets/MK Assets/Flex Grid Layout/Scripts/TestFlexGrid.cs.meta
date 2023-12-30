@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 73bbe8c66a6c1445e80ea0ab14a9aced
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Scripts/TestFlexGrid.cs
+  uploadId: 429163

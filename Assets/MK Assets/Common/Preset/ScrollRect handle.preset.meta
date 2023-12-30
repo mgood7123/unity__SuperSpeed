@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 70faa0a7b1d974c4b9fd9b4b63345d79
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2655988077585873504
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Common/Preset/ScrollRect handle.preset
+  uploadId: 429163

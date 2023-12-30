@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 931c2e4910f2a4c0dad35800465596cc
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Examples/Vertical Example 1/FlexGridItemRow-Vertical
+    1.prefab
+  uploadId: 429163

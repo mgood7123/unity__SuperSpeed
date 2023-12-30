@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7cbf8c71a04f54e39a687c02876cf775
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Prefabs/FlexGridLayout Scroll View
+    - Vertical.prefab
+  uploadId: 429163

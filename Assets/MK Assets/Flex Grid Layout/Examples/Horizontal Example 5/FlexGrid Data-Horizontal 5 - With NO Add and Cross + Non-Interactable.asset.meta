@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e1f767a2fcea947c991e060c168dc408
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Examples/Horizontal Example 5/FlexGrid
+    Data-Horizontal 5 - With NO Add and Cross + Non-Interactable.asset
+  uploadId: 429163

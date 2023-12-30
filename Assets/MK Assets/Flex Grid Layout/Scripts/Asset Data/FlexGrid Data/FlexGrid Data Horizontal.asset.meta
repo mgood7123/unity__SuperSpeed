@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 133e1837c586745ebb6a6a059bcff17a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Scripts/Asset Data/FlexGrid Data/FlexGrid
+    Data Horizontal.asset
+  uploadId: 429163

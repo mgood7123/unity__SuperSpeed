@@ -12,6 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool super_speed;
+		public bool super_sprint;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -43,6 +45,14 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnSuperSpeed(InputValue value) {
+			SuperSpeedInput(value.isPressed);
+		}
+
+		public void OnSuperSprint(InputValue value) {
+			SuperSprintInput(value.isPressed);
+		}
 #endif
 
 
@@ -64,6 +74,16 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
+		}
+
+		public void SuperSpeedInput(bool newSuperSpeedState)
+		{
+			super_speed = newSuperSpeedState;
+		}
+
+		public void SuperSprintInput(bool newSuperSprintState)
+		{
+			super_sprint = newSuperSprintState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

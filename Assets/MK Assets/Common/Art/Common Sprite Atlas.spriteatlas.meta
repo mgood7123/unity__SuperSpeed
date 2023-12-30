@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ad8c4d63d7bec43eda002f5a8e2d5bf7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Common/Art/Common Sprite Atlas.spriteatlas
+  uploadId: 429163

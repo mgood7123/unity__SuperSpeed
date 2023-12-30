@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 608daea17416b4101b0c6a0168d0e61e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192883
+  packageName: Flex Grid Layout
+  packageVersion: 1.0.1
+  assetPath: Assets/MK Assets/Flex Grid Layout/Prefabs/Core/FlexGridLastItemRow.prefab
+  uploadId: 429163

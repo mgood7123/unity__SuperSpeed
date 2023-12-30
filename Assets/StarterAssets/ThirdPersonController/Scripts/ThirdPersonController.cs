@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Tayx.Graphy.Utils.NumString;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -67,34 +68,32 @@ namespace StarterAssets {
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -30.0f;
 
-        [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-        public float CameraAngleOverride = 0.0f;
+        private float CameraAngleOverride = 0.0f;
 
-        [Tooltip("For locking the camera position on all axis")]
-        public bool LockCameraPosition = false;
+        private bool LockCameraPosition = false;
 
         // cinemachine
-        public float _cinemachineTargetYaw;
-        public float _cinemachineTargetPitch;
+        private float _cinemachineTargetYaw;
+        private float _cinemachineTargetPitch;
 
         // player
-        public float _speed;
-        public float _animationBlend;
-        public float _targetRotation = 0.0f;
-        public float _rotationVelocity;
-        public float _verticalVelocity;
-        public float _terminalVelocity = 53.0f;
+        private float _speed;
+        private float _animationBlend;
+        private float _targetRotation = 0.0f;
+        private float _rotationVelocity;
+        private float _verticalVelocity;
+        private float _terminalVelocity = 53.0f;
 
         // timeout deltatime
-        public float _jumpTimeoutDelta;
-        public float _fallTimeoutDelta;
+        private float _jumpTimeoutDelta;
+        private float _fallTimeoutDelta;
 
         // animation IDs
-        public int _animIDSpeed;
-        public int _animIDGrounded;
-        public int _animIDJump;
-        public int _animIDFreeFall;
-        public int _animIDMotionSpeed;
+        private int _animIDSpeed;
+        private int _animIDGrounded;
+        private int _animIDJump;
+        private int _animIDFreeFall;
+        private int _animIDMotionSpeed;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -117,7 +116,6 @@ namespace StarterAssets {
 #endif
             }
         }
-
 
         private void Awake() {
             // get a reference to our main camera
@@ -145,18 +143,27 @@ namespace StarterAssets {
             _fallTimeoutDelta = FallTimeout;
         }
 
-        public float player_speed;
-        public float camera_rotation_speed;
+        private float player_speed;
+        private float animation_speed;
+        private float camera_rotation_speed;
 
         private void Update() {
             _hasAnimator = TryGetComponent(out _animator);
 
-            if (SuperSpeed.Clock.instance.scale == 1.0f) {
+            if (_input.super_sprint) {
+                SuperSpeed.Clock.instance.changeScale(0.0005f);
+                player_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
+            } else if (_input.super_speed) {
+                SuperSpeed.Clock.instance.changeScale(0.0005f);
                 player_speed = 1.0f;
             } else {
-                player_speed = 1.0f / (SuperSpeed.Clock.instance.scale * 1);
+                SuperSpeed.Clock.instance.changeScale(1.0f);
+                player_speed = 1.0f;
             }
-            camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.scale;
+
+            animation_speed = player_speed;
+
+            camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
 
             JumpAndGravity();
             GroundedCheck();
@@ -177,8 +184,7 @@ namespace StarterAssets {
 
         private void GroundedCheck() {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-                transform.position.z);
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
@@ -211,19 +217,8 @@ namespace StarterAssets {
             if (_input.move == Vector2.zero) anim_speed = 0.0f;
             float targetSpeed = anim_speed * player_speed;
 
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset) {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * (SpeedChangeRate * player_speed));
-
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            } else {
-                _speed = targetSpeed;
-            }
+            _speed = targetSpeed * inputMagnitude;
 
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed / player_speed, Time.deltaTime * (SpeedChangeRate * player_speed));
             if (_animationBlend < 0.01f) _animationBlend = 0f;
@@ -244,8 +239,15 @@ namespace StarterAssets {
             if (_hasAnimator) {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-                _animator.speed = 1.0f * player_speed;
+                _animator.speed = 1.0f * animation_speed;
             }
+
+            // https://discussions.unity.com/t/how-can-i-make-an-on-screen-speedometer/2975/3
+
+            float mag = _controller.velocity.magnitude;
+            float mph = mag * 2.237f;
+            float kmh = mag * 3.6f;
+            player_kmh_view.instance.update_speed(kmh.ToInt().ToString(), "");
         }
 
         private void JumpAndGravity() {
