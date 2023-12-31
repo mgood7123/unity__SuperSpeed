@@ -29,6 +29,8 @@ namespace SuperSpeed {
             changeScale(1.0f);
         }
 
+        private bool low_fps = false;
+
         public void changeScale(float newScale) {
             scale = newScale;
 
@@ -37,6 +39,18 @@ namespace SuperSpeed {
 
             Time.timeScale = adjusted_time_scale;
             Time.fixedDeltaTime = adjusted_fixed_delta_time;
+            // Unity enforces that maximumDeltaTime is always at least as large as Time.fixedDeltaTime.
+            Time.maximumDeltaTime = fixed_delta_time;
+
+            if (Keyboard.current.fKey.isPressed) {
+                low_fps = !low_fps;
+            }
+
+            if (low_fps) {
+                Application.targetFrameRate = 10;
+            } else {
+                Application.targetFrameRate = 60;
+            }
         }
     }
 }

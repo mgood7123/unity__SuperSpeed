@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool super_perception;
 		public bool super_speed;
+		public bool paused;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -21,9 +22,15 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+        private CursorLockMode oldLockState;
+        private bool oldVisible;
+        private float oldTimeScale;
+        private float oldFixedDeltaTime;
+        private GameObject pause_ui;
+
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -52,6 +59,11 @@ namespace StarterAssets
 
 		public void OnSuperSprint(InputValue value) {
 			SuperSprintInput(value.isPressed);
+		}
+
+		public void OnPauseInput(InputValue value) {
+			Debug.Log("pause button pressed (InputValue)");
+			PauseInput(value.isPressed);
 		}
 #endif
 
@@ -86,14 +98,45 @@ namespace StarterAssets
 			super_speed = newSuperSprintState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
+		public void Start() {
+			pause_ui = GameObject.FindGameObjectWithTag("GAME_PAUSE");
+			pause_ui.SetActive(false);
 		}
 
-		private void SetCursorState(bool newState)
+		public void PauseInput(bool newPauseState) {
+			Debug.Log("pause button pressed");
+			paused = !paused;
+			if (paused) {
+				oldLockState = Cursor.lockState;
+				oldVisible = Cursor.visible;
+				oldTimeScale = Time.timeScale;
+				oldFixedDeltaTime = Time.fixedDeltaTime;
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+				Time.timeScale = 0;
+				Time.fixedDeltaTime = 0;
+				pause_ui.SetActive(true);
+			} else {
+				pause_ui.SetActive(false);
+				Cursor.lockState = oldLockState;
+				Cursor.visible = oldVisible;
+				Time.timeScale = oldTimeScale;
+				Time.fixedDeltaTime = oldFixedDeltaTime;
+			}
+		}
+
+		private void OnApplicationFocus(bool hasFocus)
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			cursorLocked = hasFocus;
+		}
+
+		void Update() {
+			if (Gamepad.current == null) {
+				cursorLocked = false;
+			}
+
+			Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.visible = Cursor.lockState != CursorLockMode.Locked;
 		}
 	}
 	

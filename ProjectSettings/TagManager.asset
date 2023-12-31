@@ -8,6 +8,7 @@ TagManager:
   - player_speed
   - player_speed_digits
   - player_speed_digits_ghost
+  - GAME_PAUSE
   layers:
   - Default
   - TransparentFX
