@@ -175,11 +175,14 @@ namespace StarterAssets {
         public float player_current_scale = 1.0f;
         bool was_super_speed = false;
         bool was_fast_perception = false;
+        
         private void ManageSpeed() {
 
             // we interpolate the scale to prevent teleporting during activation/deactivation
 
             if (_input.super_speed) {
+                // player must counteract world speed
+                // safe speed-up matters
                 was_super_speed = true;
                 was_fast_perception = false;
                 float delta = Time.deltaTime * (12.0f / SuperSpeed.Clock.instance.Scale);
@@ -189,6 +192,7 @@ namespace StarterAssets {
                 SuperSpeed.Clock.instance.changeScale(current_scale);
                 player_speed = player_current_scale;
             } else if (_input.super_perception) {
+                // doesnt matter too much here, player must move slow
                 was_super_speed = false;
                 was_fast_perception = true;
                 float delta = Time.deltaTime * (12.0f / SuperSpeed.Clock.instance.Scale);
@@ -199,6 +203,8 @@ namespace StarterAssets {
                 player_speed = player_current_scale;
             } else {
                 if (was_super_speed) {
+                    // player must counteract world speed
+                    // safe slow-up matters
                     float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
                     current_scale = Mathf.SmoothStep(current_scale, max_scale, delta);
                     if (player_current_scale > 10) {
@@ -206,13 +212,16 @@ namespace StarterAssets {
                     }
                     float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
                     player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale, delta2);
+                    SuperSpeed.Clock.instance.changeScale(current_scale);
+                    player_speed = player_current_scale;
                 } else {
+                    // doesnt matter too much here, player already moving slow
                     float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
                     current_scale = Mathf.SmoothStep(current_scale, max_scale, delta);
                     player_current_scale = 1.0f;
+                    SuperSpeed.Clock.instance.changeScale(current_scale);
+                    player_speed = player_current_scale;
                 }
-                SuperSpeed.Clock.instance.changeScale(current_scale);
-                player_speed = player_current_scale;
             }
 
             animation_speed = player_speed;
