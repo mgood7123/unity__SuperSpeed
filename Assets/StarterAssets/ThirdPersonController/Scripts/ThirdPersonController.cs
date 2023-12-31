@@ -150,21 +150,7 @@ namespace StarterAssets {
         private void Update() {
             _hasAnimator = TryGetComponent(out _animator);
 
-            if (_input.super_sprint) {
-                SuperSpeed.Clock.instance.changeScale(0.0005f);
-                player_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
-            } else if (_input.super_speed) {
-                SuperSpeed.Clock.instance.changeScale(0.0005f);
-                player_speed = 1.0f;
-            } else {
-                SuperSpeed.Clock.instance.changeScale(1.0f);
-                player_speed = 1.0f;
-            }
-
-            animation_speed = player_speed;
-
-            camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
-
+            ManageSpeed();
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -180,6 +166,50 @@ namespace StarterAssets {
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        }
+
+        [Header("Player Time Scale")]
+        public float min_scale = 0.0005f;
+        public float max_scale = 1.0f;
+        public float current_scale = 1.0f;
+        public float current_scale_change_amount;
+
+        private void ManageSpeed() {
+
+            // we interpolate the scale to prevent teleporting during activation/deactivation
+
+            if (_input.super_speed) {
+                current_scale = Mathf.Clamp(decrease(), min_scale, max_scale);
+                SuperSpeed.Clock.instance.changeScale(current_scale);
+                player_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
+            } else if (_input.super_perception) {
+                current_scale = Mathf.Clamp(decrease(), min_scale, max_scale);
+                SuperSpeed.Clock.instance.changeScale(current_scale);
+                player_speed = 1.0f;
+            } else {
+                current_scale = Mathf.Clamp(increase(), min_scale, max_scale);
+                SuperSpeed.Clock.instance.changeScale(current_scale);
+                player_speed = 1.0f;
+            }
+
+            animation_speed = player_speed;
+
+            camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
+        }
+
+        private float increase() {
+            float delta = Time.deltaTime * (1.0f / SuperSpeed.Clock.instance.Scale);
+            return Mathf.MoveTowards(current_scale, max_scale, delta);
+        }
+
+        private float decrease() {
+            if (current_scale < 0.01) {
+                float delta = Time.deltaTime * (1.0f / SuperSpeed.Clock.instance.Scale/64);
+                return Mathf.MoveTowards(current_scale, min_scale, delta);
+            } else {
+                float delta = Time.deltaTime * (1.0f / SuperSpeed.Clock.instance.Scale);
+                return Mathf.MoveTowards(current_scale, min_scale, delta);
+            }
         }
 
         private void GroundedCheck() {
@@ -213,6 +243,14 @@ namespace StarterAssets {
         }
 
         private void Move() {
+
+            // https://discussions.unity.com/t/how-can-i-make-an-on-screen-speedometer/2975/3
+
+            float mag = _controller.velocity.magnitude;
+            float mph = mag * 2.237f;
+            float kmh = mag * 3.6f;
+            player_kmh_view.instance.update_speed(kmh.ToInt().ToString(), "");
+
             float anim_speed = _input.sprint ? SprintSpeed : MoveSpeed;
             if (_input.move == Vector2.zero) anim_speed = 0.0f;
             float targetSpeed = anim_speed * player_speed;
@@ -241,13 +279,6 @@ namespace StarterAssets {
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
                 _animator.speed = 1.0f * animation_speed;
             }
-
-            // https://discussions.unity.com/t/how-can-i-make-an-on-screen-speedometer/2975/3
-
-            float mag = _controller.velocity.magnitude;
-            float mph = mag * 2.237f;
-            float kmh = mag * 3.6f;
-            player_kmh_view.instance.update_speed(kmh.ToInt().ToString(), "");
         }
 
         private void JumpAndGravity() {

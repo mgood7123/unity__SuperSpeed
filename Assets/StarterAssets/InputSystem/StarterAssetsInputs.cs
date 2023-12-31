@@ -12,8 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool super_perception;
 		public bool super_speed;
-		public bool super_sprint;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -78,12 +78,12 @@ namespace StarterAssets
 
 		public void SuperSpeedInput(bool newSuperSpeedState)
 		{
-			super_speed = newSuperSpeedState;
+			super_perception = newSuperSpeedState;
 		}
 
 		public void SuperSprintInput(bool newSuperSprintState)
 		{
-			super_sprint = newSuperSprintState;
+			super_speed = newSuperSprintState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
