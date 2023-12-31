@@ -182,18 +182,18 @@ namespace StarterAssets {
             if (_input.super_speed) {
                 was_super_speed = true;
                 was_fast_perception = false;
-                float delta = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
+                float delta = Time.deltaTime * (12.0f / SuperSpeed.Clock.instance.Scale);
                 current_scale = Mathf.SmoothStep(current_scale, min_scale, delta);
-                float delta2 = Time.deltaTime * (6.0f / SuperSpeed.Clock.instance.Scale);
+                float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
                 player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale / current_scale, delta2);
                 SuperSpeed.Clock.instance.changeScale(current_scale);
                 player_speed = player_current_scale;
             } else if (_input.super_perception) {
                 was_super_speed = false;
                 was_fast_perception = true;
-                float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
+                float delta = Time.deltaTime * (12.0f / SuperSpeed.Clock.instance.Scale);
                 current_scale = Mathf.SmoothStep(current_scale, min_scale, delta);
-                float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
+                float delta2 = Time.deltaTime * (10.0f / SuperSpeed.Clock.instance.Scale);
                 player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale, delta2);
                 SuperSpeed.Clock.instance.changeScale(current_scale);
                 player_speed = player_current_scale;
