@@ -172,44 +172,52 @@ namespace StarterAssets {
         public float min_scale = 0.0005f;
         public float max_scale = 1.0f;
         public float current_scale = 1.0f;
-        public float current_scale_change_amount;
-
+        public float player_current_scale = 1.0f;
+        bool was_super_speed = false;
+        bool was_fast_perception = false;
         private void ManageSpeed() {
 
             // we interpolate the scale to prevent teleporting during activation/deactivation
 
             if (_input.super_speed) {
-                current_scale = Mathf.Clamp(decrease(), min_scale, max_scale);
+                was_super_speed = true;
+                was_fast_perception = false;
+                float delta = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
+                current_scale = Mathf.SmoothStep(current_scale, min_scale, delta);
+                float delta2 = Time.deltaTime * (6.0f / SuperSpeed.Clock.instance.Scale);
+                player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale / current_scale, delta2);
                 SuperSpeed.Clock.instance.changeScale(current_scale);
-                player_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
+                player_speed = player_current_scale;
             } else if (_input.super_perception) {
-                current_scale = Mathf.Clamp(decrease(), min_scale, max_scale);
+                was_super_speed = false;
+                was_fast_perception = true;
+                float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
+                current_scale = Mathf.SmoothStep(current_scale, min_scale, delta);
+                float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
+                player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale, delta2);
                 SuperSpeed.Clock.instance.changeScale(current_scale);
-                player_speed = 1.0f;
+                player_speed = player_current_scale;
             } else {
-                current_scale = Mathf.Clamp(increase(), min_scale, max_scale);
+                if (was_super_speed) {
+                    float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
+                    current_scale = Mathf.SmoothStep(current_scale, max_scale, delta);
+                    if (player_current_scale > 10) {
+                        player_current_scale = 10.0f;
+                    }
+                    float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
+                    player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale, delta2);
+                } else {
+                    float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
+                    current_scale = Mathf.SmoothStep(current_scale, max_scale, delta);
+                    player_current_scale = 1.0f;
+                }
                 SuperSpeed.Clock.instance.changeScale(current_scale);
-                player_speed = 1.0f;
+                player_speed = player_current_scale;
             }
 
             animation_speed = player_speed;
 
             camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
-        }
-
-        private float increase() {
-            float delta = Time.deltaTime * (1.0f / SuperSpeed.Clock.instance.Scale);
-            return Mathf.MoveTowards(current_scale, max_scale, delta);
-        }
-
-        private float decrease() {
-            if (current_scale < 0.01) {
-                float delta = Time.deltaTime * (1.0f / SuperSpeed.Clock.instance.Scale/64);
-                return Mathf.MoveTowards(current_scale, min_scale, delta);
-            } else {
-                float delta = Time.deltaTime * (1.0f / SuperSpeed.Clock.instance.Scale);
-                return Mathf.MoveTowards(current_scale, min_scale, delta);
-            }
         }
 
         private void GroundedCheck() {
