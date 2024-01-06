@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 32a70372454930f45a9a781b85d79ab5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Examples/Timeline1/Timeline1.playable
+  uploadId: 595282

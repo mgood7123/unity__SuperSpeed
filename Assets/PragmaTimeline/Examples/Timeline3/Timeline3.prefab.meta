@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2f52f05478e98264987c73e46985eecc
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Examples/Timeline3/Timeline3.prefab
+  uploadId: 595282

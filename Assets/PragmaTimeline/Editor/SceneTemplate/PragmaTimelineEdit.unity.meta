@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 85418fdfdf956844fa1a211d874404cb
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Editor/SceneTemplate/PragmaTimelineEdit.unity
+  uploadId: 595282

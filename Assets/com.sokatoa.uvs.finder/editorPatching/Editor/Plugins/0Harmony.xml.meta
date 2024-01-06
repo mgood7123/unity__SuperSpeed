@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ca54ffda27ea4b3499327432d17cac3e
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/editorPatching/Editor/Plugins/0Harmony.xml
+  uploadId: 590925

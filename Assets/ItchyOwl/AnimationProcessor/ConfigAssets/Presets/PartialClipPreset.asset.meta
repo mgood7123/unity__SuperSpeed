@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: cb60ea68d5426ff45ab737dfd9d4b8c1
+timeCreated: 1517393668
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/AnimationProcessor/ConfigAssets/Presets/PartialClipPreset.asset
+  uploadId: 257612

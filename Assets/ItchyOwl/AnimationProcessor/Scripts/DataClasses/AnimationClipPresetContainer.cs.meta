@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 9be65571e5596f143a0ac17065297fff
+labels:
+- Animation
+- Clip
+- Import
+- Importer
+- Process
+- Processor
+- Settings
+timeCreated: 1517908877
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/AnimationProcessor/Scripts/DataClasses/AnimationClipPresetContainer.cs
+  uploadId: 257612

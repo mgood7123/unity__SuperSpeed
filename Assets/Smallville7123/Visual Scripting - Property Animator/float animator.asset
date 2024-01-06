@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: float animator
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[{"key":"in","label":"Step","summary":null,"hideLabel":false}],"controlOutputDefinitions":[{"key":"out","label":null,"summary":null,"hideLabel":true}],"valueInputDefinitions":[{"hasDefaultValue":false,"defaultValue":{"$content":0.0,"$type":"System.Single"},"_type":"System.Single","key":"float
+      from","label":"from [ Float ]","summary":null,"hideLabel":false},{"hasDefaultValue":false,"defaultValue":{"$content":0.0,"$type":"System.Single"},"_type":"System.Single","key":"float
+      to","label":"to [ Float ]","summary":null,"hideLabel":false},{"hasDefaultValue":true,"defaultValue":{"$content":1,"$type":"System.Int32"},"_type":"System.Int32","key":"Duration
+      (ms) in","label":"Duration (ms)","summary":null,"hideLabel":false},{"hasDefaultValue":true,"defaultValue":{"$content":60,"$type":"System.Int32"},"_type":"System.Int32","key":"FPS","label":"Target
+      FPS","summary":"","hideLabel":false}],"valueOutputDefinitions":[{"_type":"System.Single","key":"float
+      out","label":"Float","summary":null,"hideLabel":false}],"title":"Float Animator","summary":"animates
+      a floating point value\n\nTarget FPS defaults to 60","pan":{"x":0.0,"y":-45.94879},"zoom":1.0,"elements":[{"defaultValues":{},"position":{"x":108.0,"y":-112.0},"guid":"008ac160-7d77-428e-9fc9-e37b7aa54c52","$version":"A","$type":"Unity.VisualScripting.GraphOutput"},{"defaultValues":{},"position":{"x":-445.0,"y":-159.0},"guid":"00f57bd9-3d0f-4b42-a201-c46ad6d49228","$version":"A","$type":"Unity.VisualScripting.GraphInput","$id":"18"},{"defaultValues":{"dividend":{"$content":1.0,"$type":"System.Single"},"divisor":{"$content":1.0,"$type":"System.Single"}},"position":{"x":-274.0,"y":31.0},"guid":"fc4dbcbc-09f6-4562-b095-b3930515b354","$version":"A","$type":"Unity.VisualScripting.ScalarDivide","$id":"20"},{"sourceUnit":{"$ref":"18"},"sourceKey":"FPS","destinationUnit":{"$ref":"20"},"destinationKey":"divisor","guid":"1e03135b-29cc-4a8b-a9e5-0ca6d744f5c7","$type":"Unity.VisualScripting.ValueConnection"}],"$version":"A"}}'
+    _objectReferences: []

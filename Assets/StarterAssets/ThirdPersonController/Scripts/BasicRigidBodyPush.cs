@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
+    [RequireComponent(typeof(CharacterController))]
 public class BasicRigidBodyPush : MonoBehaviour
 {
 	public LayerMask pushLayers;
 	public bool canPush;
-	[Range(0.5f, 50f)] public float strength = 1.1f;
+	[Range(0.5f, 20f)] public float strength = 1.1f;
 
 	private void OnControllerColliderHit(ControllerColliderHit hit)
 	{

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be65571e5596f143a0ac17065297fff, type: 3}
+  m_Name: AnimationClipPresetContainer
+  m_EditorClassIdentifier: 
+  presets:
+  - {fileID: 11400000, guid: a44f4d665b8ee924f98f5ec10c0c347c, type: 2}
+  - {fileID: 11400000, guid: cb60ea68d5426ff45ab737dfd9d4b8c1, type: 2}
+  - {fileID: 11400000, guid: b4754b32f741ca849ae0bde876d3dcf1, type: 2}
+  - {fileID: 11400000, guid: 7a81e8708bb28a74cb1ec60ba1e49477, type: 2}

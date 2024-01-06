@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e574157db93cfec45920f093a9052a37
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/editorPatching/CHANGELOG.md
+  uploadId: 590925

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a9adadb783a37584c9789f1b46995959
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 12385, guid: 0000000000000000e000000000000000, type: 0}
+  disableValidation: 0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/Editor/UI/foldout-header_dark.uss
+  uploadId: 590925

@@ -39,6 +39,7 @@ namespace SuperSpeed {
 
             Time.timeScale = adjusted_time_scale;
             Time.fixedDeltaTime = adjusted_fixed_delta_time;
+
             // Unity enforces that maximumDeltaTime is always at least as large as Time.fixedDeltaTime.
             Time.maximumDeltaTime = fixed_delta_time;
 
@@ -47,10 +48,11 @@ namespace SuperSpeed {
             }
 
             if (low_fps) {
-                Application.targetFrameRate = 10;
+                GameSettings.render_fps = 10;
             } else {
-                Application.targetFrameRate = 60;
+                GameSettings.render_fps = 60;
             }
+            Application.targetFrameRate = GameSettings.render_fps;
         }
     }
 }

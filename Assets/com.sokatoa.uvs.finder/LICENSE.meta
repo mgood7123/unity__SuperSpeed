@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f547137b95b409d4a831b03788f2fc33
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/LICENSE
+  uploadId: 590925

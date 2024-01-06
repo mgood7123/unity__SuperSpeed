@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 336404f647c61ce4db3b999a77d5db23
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/editorPatching/Editor/needle.EditorPatching.asmdef
+  uploadId: 590925

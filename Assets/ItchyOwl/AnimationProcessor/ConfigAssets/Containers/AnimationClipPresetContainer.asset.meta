@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7c60aa6cf54623449b7aa4d6ebcb94ba
+timeCreated: 1517910153
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/AnimationProcessor/ConfigAssets/Containers/AnimationClipPresetContainer.asset
+  uploadId: 257612

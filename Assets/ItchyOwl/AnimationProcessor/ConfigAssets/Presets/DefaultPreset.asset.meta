@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b4754b32f741ca849ae0bde876d3dcf1
+timeCreated: 1532524001
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/AnimationProcessor/ConfigAssets/Presets/DefaultPreset.asset
+  uploadId: 257612

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 720ee56cfb4d4712a3004e8ed6a17dd3
+timeCreated: 1674379764
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Runtime/TimelineHolder.cs
+  uploadId: 595282

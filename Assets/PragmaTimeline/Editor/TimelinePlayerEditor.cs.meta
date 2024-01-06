@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 29207d78790044d1977fbb8e6c757ed4
+timeCreated: 1677080752
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Editor/TimelinePlayerEditor.cs
+  uploadId: 595282

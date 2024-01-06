@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 18905b5784b6c3440a048dd13fe09d3b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/Editor/ContextExtension/UVSStateContextExt.cs
+  uploadId: 590925

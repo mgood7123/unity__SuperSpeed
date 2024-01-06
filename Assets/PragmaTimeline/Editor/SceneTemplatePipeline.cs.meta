@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0224a320c0cad534cb954df9a3068850
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Editor/SceneTemplatePipeline.cs
+  uploadId: 595282

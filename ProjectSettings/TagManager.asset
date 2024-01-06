@@ -9,6 +9,10 @@ TagManager:
   - player_speed_digits
   - player_speed_digits_ghost
   - GAME_PAUSE
+  - Enemy
+  - Boundary
+  - ragdoll
+  - UI_DOCUMENT
   layers:
   - Default
   - TransparentFX

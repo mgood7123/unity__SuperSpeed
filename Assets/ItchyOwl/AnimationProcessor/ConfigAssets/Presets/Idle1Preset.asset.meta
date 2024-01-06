@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a44f4d665b8ee924f98f5ec10c0c347c
+timeCreated: 1517393668
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/AnimationProcessor/ConfigAssets/Presets/Idle1Preset.asset
+  uploadId: 257612

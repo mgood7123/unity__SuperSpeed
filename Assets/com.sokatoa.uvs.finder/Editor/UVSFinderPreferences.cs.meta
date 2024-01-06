@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1e0ae2136f422e94d9bad48e40754e78
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/Editor/UVSFinderPreferences.cs
+  uploadId: 590925

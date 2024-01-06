@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c9ad68fc18f099c428426777d340699e
+timeCreated: 1517477141
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/AnimationProcessor/Readme.txt
+  uploadId: 257612

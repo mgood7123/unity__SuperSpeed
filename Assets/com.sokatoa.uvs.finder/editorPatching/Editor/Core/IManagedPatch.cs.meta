@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 3241564aa6ca49e4ab289e738d98b131
+timeCreated: 1603657036
+AssetOrigin:
+  serializedVersion: 1
+  productId: 205655
+  packageName: Node finder for unity visual scripting
+  packageVersion: 0.5.0
+  assetPath: Assets/com.sokatoa.uvs.finder/editorPatching/Editor/Core/IManagedPatch.cs
+  uploadId: 590925

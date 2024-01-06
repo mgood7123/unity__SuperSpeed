@@ -1106,8 +1106,8 @@ MonoBehaviour:
   BottomClamp: -30
   min_scale: 0.0005
   max_scale: 1
-  current_scale: 1
-  current_scale_change_amount: 0
+  world_current_scale: 1
+  player_current_scale: 1
 --- !u!95 &6982812146204527121
 Animator:
   serializedVersion: 7
@@ -1191,6 +1191,7 @@ MonoBehaviour:
   sprint: 0
   super_perception: 0
   super_speed: 0
+  paused: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1

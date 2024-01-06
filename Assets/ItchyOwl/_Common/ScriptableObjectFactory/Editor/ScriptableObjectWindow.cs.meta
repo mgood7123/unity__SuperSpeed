@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 47f602f59a398c34fbbed66cc1d00d88
+labels:
+- Factory
+- ScriptableObject
+timeCreated: 1454868617
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/_Common/ScriptableObjectFactory/Editor/ScriptableObjectWindow.cs
+  uploadId: 257612

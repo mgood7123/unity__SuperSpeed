@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: caa6de690dd371e44be0086ee9a5c0a0
+timeCreated: 1517413831
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116688
+  packageName: Animation Processor
+  packageVersion: 1.1
+  assetPath: Assets/ItchyOwl/_Common/Editor/EndNameEdit.cs
+  uploadId: 257612

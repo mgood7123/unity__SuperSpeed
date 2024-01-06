@@ -105,8 +105,6 @@ namespace StarterAssets {
 
         private const float _threshold = 0.01f;
 
-        private bool _hasAnimator;
-
         private bool IsCurrentDeviceMouse {
             get {
 #if ENABLE_INPUT_SYSTEM
@@ -127,7 +125,7 @@ namespace StarterAssets {
         private void Start() {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
-            _hasAnimator = TryGetComponent(out _animator);
+            _animator = GetComponent<Animator>();
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM 
@@ -136,7 +134,10 @@ namespace StarterAssets {
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
+            ragdoll = GetComponent<BasicRigidBodyRagdoll>();
+
             AssignAnimationIDs();
+
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
@@ -147,13 +148,16 @@ namespace StarterAssets {
         private float animation_speed;
         private float camera_rotation_speed;
 
-        private void Update() {
-            _hasAnimator = TryGetComponent(out _animator);
+        private BasicRigidBodyRagdoll ragdoll;
 
+        private void Update() {
+            UpdateText();
             ManageSpeed();
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            if (!ragdoll.in_ragdoll) {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
         }
 
         private void LateUpdate() {
@@ -229,59 +233,6 @@ namespace StarterAssets {
             camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
         }
 
-        private void ManageSpeedOld() {
-
-            // we interpolate the scale to prevent teleporting during activation/deactivation
-
-            if (_input.super_speed) {
-                // player must counteract world speed
-                // safe speed-up matters
-                was_super_speed = true;
-                was_fast_perception = false;
-                float delta = Time.deltaTime * (12.0f / SuperSpeed.Clock.instance.Scale);
-                world_current_scale = Mathf.SmoothStep(world_current_scale, min_scale, delta);
-                float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
-                player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale / world_current_scale, delta2);
-                SuperSpeed.Clock.instance.changeScale(world_current_scale);
-                player_speed = player_current_scale;
-            } else if (_input.super_perception) {
-                // doesnt matter too much here, player must move slow
-                was_super_speed = false;
-                was_fast_perception = true;
-                float delta = Time.deltaTime * (12.0f / SuperSpeed.Clock.instance.Scale);
-                world_current_scale = Mathf.SmoothStep(world_current_scale, min_scale, delta);
-                float delta2 = Time.deltaTime * (10.0f / SuperSpeed.Clock.instance.Scale);
-                player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale, delta2);
-                SuperSpeed.Clock.instance.changeScale(world_current_scale);
-                player_speed = player_current_scale;
-            } else {
-                if (was_super_speed) {
-                    // player must counteract world speed
-                    // safe slow-up matters
-                    float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
-                    world_current_scale = Mathf.SmoothStep(world_current_scale, max_scale, delta);
-                    if (player_current_scale > 10) {
-                        player_current_scale = 10.0f;
-                    }
-                    float delta2 = Time.deltaTime * (8.0f / SuperSpeed.Clock.instance.Scale);
-                    player_current_scale = Mathf.SmoothStep(player_current_scale, max_scale, delta2);
-                    SuperSpeed.Clock.instance.changeScale(world_current_scale);
-                    player_speed = player_current_scale;
-                } else {
-                    // doesnt matter too much here, player already moving slow
-                    float delta = Time.deltaTime * (5.0f / SuperSpeed.Clock.instance.Scale);
-                    world_current_scale = Mathf.SmoothStep(world_current_scale, max_scale, delta);
-                    player_current_scale = 1.0f;
-                    SuperSpeed.Clock.instance.changeScale(world_current_scale);
-                    player_speed = player_current_scale;
-                }
-            }
-
-            animation_speed = player_speed;
-
-            camera_rotation_speed = 1.0f / SuperSpeed.Clock.instance.Scale;
-        }
-
         private void GroundedCheck() {
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
@@ -289,9 +240,7 @@ namespace StarterAssets {
                 QueryTriggerInteraction.Ignore);
 
             // update animator if using character
-            if (_hasAnimator) {
-                _animator.SetBool(_animIDGrounded, Grounded);
-            }
+            _animator.SetBool(_animIDGrounded, Grounded);
         }
 
         private void CameraRotation() {
@@ -312,30 +261,41 @@ namespace StarterAssets {
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
         }
 
-        void update_text() {
+        void UpdateText() {
             float mag = _controller.velocity.magnitude;
             float mph = mag * 2.237f;
             float kmh = mag * 3.6f;
+
+            // TODO: compute percieved time (in relation to real time)
+            // TODO: world scale: 0.5
+            // TODO: real time: 1 sec
+            // TODO: perc time: 500 ms
+            long ns_in_second = 1000 * 1000 * 1000;
+
             player_kmh_view.instance.text.text =
-            "velocity: " + _controller.velocity + "\n"
-            + "velocity.magnitude: " + mag + "\n"
+            ""
             + kmh.ToInt() + " KMH\n"
             + mph.ToInt() + " MPH\n"
+            + "velocity: " + _controller.velocity + "\n"
+            + "velocity.magnitude: " + mag + "\n"
             + "player speed: " + player_current_scale + "\n"
             + "world speed:  " + world_current_scale + "\n"
-            + "Time.timeScale:        " + Time.timeScale + "\n"
-            + "Time.fixedDeltaTime:   " + Time.fixedDeltaTime + "\n"
-            + "Time.deltaTime:        " + Time.deltaTime + "\n"
-            + "Time.maximumDeltaTime: " + Time.maximumDeltaTime + "\n"
-            + "Target FPS: " + Application.targetFrameRate + "\n"
+            + "\n"
+            // + "1 second in game @ 1.0 world speed: " + ((1 / (1.0f / GameSettings.timer_fps)) / GameSettings.timer_fps) + "\n"
+            // + "1 second in game @ " + world_current_scale + " world speed: " + ((1 / (world_current_scale / GameSettings.timer_fps)) / GameSettings.timer_fps) + "\n"
+            + "1 Second\n"
+            + "-------------"
+            + "1 Second\n"
+            + "\n"
+            + "[ Percieved Time Until Next Real Second ]\n"
+            + "Hours : Minutes : Seconds : Milliseconds : Microseconds : Nanoseconds\n"
+            + "00       : 00         : 00           : 00                 : 00                   : 00\n"
             ;
         }
 
         private void Move() {
 
             // https://discussions.unity.com/t/how-can-i-make-an-on-screen-speedometer/2975/3
-
-            update_text();
 
             float anim_speed = _input.sprint ? SprintSpeed : MoveSpeed;
             if (_input.move == Vector2.zero) anim_speed = 0.0f;
@@ -360,11 +320,9 @@ namespace StarterAssets {
 
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime * player_speed);
 
-            if (_hasAnimator) {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-                _animator.speed = 1.0f * animation_speed;
-            }
+            _animator.SetFloat(_animIDSpeed, _animationBlend);
+            _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+            _animator.speed = 1.0f * animation_speed;
         }
 
         private void JumpAndGravity() {
@@ -374,10 +332,8 @@ namespace StarterAssets {
                 _fallTimeoutDelta = FallTimeout;
 
                 // update animator if using character
-                if (_hasAnimator) {
-                    _animator.SetBool(_animIDJump, false);
-                    _animator.SetBool(_animIDFreeFall, false);
-                }
+                _animator.SetBool(_animIDJump, false);
+                _animator.SetBool(_animIDFreeFall, false);
 
                 // stop our velocity dropping infinitely when grounded
                 if (_verticalVelocity < 0.0f) {
@@ -390,9 +346,7 @@ namespace StarterAssets {
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
                     // update animator if using character
-                    if (_hasAnimator) {
-                        _animator.SetBool(_animIDJump, true);
-                    }
+                    _animator.SetBool(_animIDJump, true);
                 }
 
                 // jump timeout
@@ -408,9 +362,7 @@ namespace StarterAssets {
                     _fallTimeoutDelta -= Time.deltaTime * player_speed;
                 } else {
                     // update animator if using character
-                    if (_hasAnimator) {
-                        _animator.SetBool(_animIDFreeFall, true);
-                    }
+                    _animator.SetBool(_animIDFreeFall, true);
                 }
 
                 // if we are not grounded, do not jump

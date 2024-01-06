@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7fbb0240c8f81ec42a3595a900d5840d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252697
+  packageName: Pragma Timeline
+  packageVersion: 0.7.1
+  assetPath: Assets/PragmaTimeline/Examples/Materials/Blue.mat
+  uploadId: 595282

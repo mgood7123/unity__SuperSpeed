@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+    "com.unity.2d.aseprite": "1.0.1",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.development": "1.0.2",
@@ -7,6 +10,7 @@
     "com.unity.render-pipelines.universal": "16.0.4",
     "com.unity.timeline": "1.8.6",
     "com.unity.ugui": "2.0.0",
+    "com.unity.vectorgraphics": "2.0.0-preview.21",
     "com.unity.visualscripting": "1.8.0",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
