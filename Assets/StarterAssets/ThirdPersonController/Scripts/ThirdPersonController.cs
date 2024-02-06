@@ -2,6 +2,8 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
+using UnityEngine.UIElements;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -108,6 +110,9 @@ namespace StarterAssets {
         private bool IsCurrentDeviceMouse {
             get {
 #if ENABLE_INPUT_SYSTEM
+                if (_playerInput == null) {
+                    return false;
+                }
                 return _playerInput.currentControlScheme == "KeyboardMouse";
 #else
 				return false;
@@ -266,10 +271,6 @@ namespace StarterAssets {
             float mph = mag * 2.237f;
             float kmh = mag * 3.6f;
 
-            // TODO: compute percieved time (in relation to real time)
-            // TODO: world scale: 0.5
-            // TODO: real time: 1 sec
-            // TODO: perc time: 500 ms
             long ns_in_second = 1000 * 1000 * 1000;
 
             player_kmh_view.instance.text.text =
@@ -281,16 +282,74 @@ namespace StarterAssets {
             + "player speed: " + player_current_scale + "\n"
             + "world speed:  " + world_current_scale + "\n"
             + "\n"
-            // + "1 second in game @ 1.0 world speed: " + ((1 / (1.0f / GameSettings.timer_fps)) / GameSettings.timer_fps) + "\n"
-            // + "1 second in game @ " + world_current_scale + " world speed: " + ((1 / (world_current_scale / GameSettings.timer_fps)) / GameSettings.timer_fps) + "\n"
-            + "1 Second\n"
-            + "-------------"
-            + "1 Second\n"
-            + "\n"
-            + "[ Percieved Time Until Next Real Second ]\n"
-            + "Hours : Minutes : Seconds : Milliseconds : Microseconds : Nanoseconds\n"
-            + "00       : 00         : 00           : 00                 : 00                   : 00\n"
+            + "real time: 1 second and 0 milliseconds\n"
+            + "-------------\n"
+            + "percieved time: " + ns_to_string((long)(ns_in_second * world_current_scale)) + "\n"
+            + "remaining time: " + ns_to_string((long)(ns_in_second / world_current_scale)) + "\n"
             ;
+        }
+
+        string ns_to_string(long ns) {
+            long hours;
+            long minutes;
+            long seconds;
+            long milliseconds;
+            long microseconds;
+            long nanoseconds;
+            if (ns >= 86400000000000) {
+                // we have days
+                microseconds = ns / 1000;
+                milliseconds = microseconds / 1000;
+                seconds = milliseconds / 1000;
+                minutes = seconds / 60;
+                hours = minutes / 60;
+                long days = hours / 24;
+                hours = hours - (24 * days);
+                return days + " day" + (days == 1 ? "" : "s") + " and " + hours + " hour" + (hours == 1 ? "" : "s");
+            } else if (ns >= 3600000000000) {
+                // we have hours
+                microseconds = ns / 1000;
+                milliseconds = microseconds / 1000;
+                seconds = milliseconds / 1000;
+                minutes = seconds / 60;
+                hours = minutes / 60;
+                minutes = minutes - (60 * hours);
+                return hours + " hour" + (hours == 1 ? "" : "s") + " and " + minutes + " minute" + (minutes == 1 ? "" : "s");
+            } else if (ns >= 60000000000) {
+                // we have minutes
+                microseconds = ns / 1000;
+                milliseconds = microseconds / 1000;
+                seconds = milliseconds / 1000;
+                minutes = seconds / 60;
+                seconds = seconds - (60 * minutes);
+                return minutes + " minute" + (minutes == 1 ? "" : "s") + " and " + seconds + " second" + (seconds == 1 ? "" : "s");
+            } else if (ns >= 1000000000) {
+                // we have seconds
+                microseconds = ns / 1000;
+                milliseconds = microseconds / 1000;
+                seconds = milliseconds / 1000;
+                milliseconds -= seconds * 1000;
+                return seconds + " second" + (seconds == 1 ? "" : "s") + " and " + milliseconds + " millisecond" + (milliseconds == 1 ? "" : "s");
+            } else if (ns >= 1000000) {
+                // we have milliseconds
+                microseconds = ns / 1000;
+                milliseconds = microseconds / 1000;
+                microseconds -= milliseconds * 1000;
+                return milliseconds + " millisecond" + (milliseconds == 1 ? "" : "s") + " and " + microseconds + " microsecond" + (microseconds == 1 ? "" : "s");
+            } else if (ns >= 1000) {
+                // we have microseconds
+                nanoseconds = ns;
+                microseconds = ns / 1000;
+                nanoseconds -= microseconds * 1000;
+                return microseconds + " microsecond" + (microseconds == 1 ? "" : "s") + " and " + nanoseconds + " nanosecond" + (nanoseconds == 1 ? "" : "s");
+            } else if (ns >= 1) {
+                // we have nanoseconds
+                nanoseconds = ns;
+                return nanoseconds + " nanosecond" + (nanoseconds == 1 ? "" : "s");
+            } else {
+                // we have nothing
+                return "0 nanoseconds";
+            }
         }
 
         private void Move() {
